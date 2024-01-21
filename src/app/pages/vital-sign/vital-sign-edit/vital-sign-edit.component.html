@@ -1,0 +1,55 @@
+<form [formGroup]="form" class="example-container" (submit)="operate()">
+    <br>
+    <div [hidden]="true">
+        <mat-form-field>
+            <input matInput placeholder="ID" required formControlName="idVitalSign">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Patients</mat-label>
+        <mat-select formControlName="patientForm" [compareWith]="compareFunction">
+            <mat-option *ngFor="let p of patients$ | async" [value]="p">
+                {{p.firstName}} {{p.lastName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <label>DATE: </label>
+    <mat-form-field>
+        <input matInput placeholder="DD/MM/YYYY" required formControlName="dateReg">
+        <small *ngIf="f['dateReg'].errors?.['required'] && f['dateReg'].touched" class="invalid">Is required</small>
+        <small *ngIf="f['dateReg'].errors?.['minlength'] && f['dateReg'].touched" class="invalid">Minlength is 3</small>
+    </mat-form-field>
+
+    <label>TEMPERATURE: </label>
+    <mat-form-field>
+        <input matInput placeholder="TEMPERATURE" required formControlName="temperature">
+        <small *ngIf="f['temperature'].errors?.['required'] && f['temperature'].touched" class="invalid">Is required</small>
+        <small *ngIf="f['temperature'].errors?.['minlength'] && f['temperature'].touched" class="invalid">Minlength is 8</small>
+    </mat-form-field>
+
+    <label>PULSE: </label>
+    <mat-form-field>
+        <input matInput placeholder="PULSE" required formControlName="pulse">
+        <small *ngIf="f['pulse'].errors?.['required'] && f['pulse'].touched" class="invalid">Is required</small>
+        <small *ngIf="f['pulse'].errors?.['minlength'] && f['pulse'].touched" class="invalid">Minlength is 2</small>
+    </mat-form-field>
+
+    <label>RESPIRATORY RATE: </label>
+    <mat-form-field>
+        <input matInput placeholder="RESPIRATORY RATE" required formControlName="respiratoryRate">
+        <small *ngIf="f['respiratoryRate'].errors?.['required'] && f['respiratoryRate'].touched" class="invalid">Is required</small>
+        <small *ngIf="f['respiratoryRate'].errors?.['minlength'] && f['respiratoryRate'].touched" class="invalid">Minlength is 9</small>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+        <mat-icon>done</mat-icon>
+        <span>Accept</span>
+    </button>
+
+    <button mat-raised-button color="accent" type="button" routerLink="/pages/vital-sign">
+        <mat-icon>cancel</mat-icon>
+        <span>Cancel</span>
+    </button>
+</form>

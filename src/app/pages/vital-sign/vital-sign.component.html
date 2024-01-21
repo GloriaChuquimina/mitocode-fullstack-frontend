@@ -1,0 +1,66 @@
+<div class="example-container"  *ngIf="route.children.length === 0">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Example..." (keyup)="applyFilter($event)">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+            
+        <ng-container matColumnDef="idVitalSign">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.idVitalSign}} </td>
+        </ng-container>
+            
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.patient.firstName}} </td>
+        </ng-container>
+            
+        <ng-container matColumnDef="dateReg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Register </th>
+            <td mat-cell *matCellDef="let row"> {{row.dateReg}} </td>
+        </ng-container>
+            
+        <ng-container matColumnDef="temperature">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+            <td mat-cell *matCellDef="let row"> {{row.temperature}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pulse">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Pulse </th>
+            <td mat-cell *matCellDef="let row"> {{row.pulse}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="respiratoryRate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Respiratory Rate </th>
+            <td mat-cell *matCellDef="let row"> {{row.respiratoryRate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row"> 
+                <button mat-button color="primary" [routerLink]="['edit', row.idVitalSign]">
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+
+                <button mat-button color="accent" (click)="delete(row.idVitalSign)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[2, 4, 6, 100]" [length]="totalElements" (page)="showMore($event)" aria-label="Select page of users"></mat-paginator>
+
+        <button mat-fab color="primary" style="float: right;" routerLink="/pages/vital-sign/new">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+
+<router-outlet *ngIf="route.children.length !== 0"></router-outlet>
